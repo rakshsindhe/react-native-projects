@@ -1,53 +1,82 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import React, { useReducer } from "react";
+import { View, StyleSheet } from "react-native";
 import SingleBox from "./SingleBox";
 
+const COLOR_INCREMENT = 15;
+const initialState = {
+  red: 0,
+  green: 0,
+  blue: 0
+};
+
+const reducer = (state, action) => {
+  const { type, payload } = action;
+  const { red, green, blue } = state;
+  switch (type) {
+    case "red":
+      return red + payload > 255 || red + payload < 0
+        ? state
+        : {
+            ...state,
+            red: red + payload
+          };
+
+    case "green":
+      return green + payload > 255 || green + payload < 0
+        ? state
+        : {
+            ...state,
+            green: green + payload
+          };
+
+    case "blue":
+      return blue + payload > 255 || blue + payload < 0
+        ? state
+        : {
+            ...state,
+            blue: blue + payload
+          };
+
+    default:
+      state;
+  }
+};
+
 const ColorBoxGenerator = () => {
-  const [red, setRed] = useState(0);
-  const [blue, setBlue] = useState(0);
-  const [green, setGreen] = useState(0);
-  const COLOR_INCREMENT = 15;
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { red = 0, green = 0, blue = 0 } = state;
+
   console.log(`Red = ${red}, Green = ${green}, Blue = ${blue}`);
-  const setColor = (color, change) => {
-    switch (color) {
-      case "red":
-        red + change > 255 || red + change < 0 ? null : setRed(red + change);
-        return;
-
-      case "green":
-        green + change > 255 || green + change < 0
-          ? null
-          : setGreen(green + change);
-        return;
-
-      case "blue":
-        blue + change > 255 || blue + change < 0
-          ? null
-          : setBlue(blue + change);
-        return;
-
-      default:
-        return;
-    }
-  };
 
   return (
     <View style={styles.coloBoxAppWrapper}>
       <View>
         <SingleBox
           color={"Red"}
-          increaseColor={() => setColor("red", COLOR_INCREMENT)}
-          decreaseColor={() => setColor("red", -1 * COLOR_INCREMENT)}
+          increaseColor={() =>
+            dispatch({ type: "red", payload: COLOR_INCREMENT })
+          }
+          decreaseColor={() =>
+            dispatch({ type: "red", payload: -1 * COLOR_INCREMENT })
+          }
         />
         <SingleBox
           color={"Green"}
-          increaseColor={() => setColor("green", COLOR_INCREMENT)}
-          decreaseColor={() => setColor("green", -1 * COLOR_INCREMENT)}
+          increaseColor={() =>
+            dispatch({ type: "green", payload: COLOR_INCREMENT })
+          }
+          decreaseColor={() =>
+            dispatch({ type: "green", payload: -1 * COLOR_INCREMENT })
+          }
         />
         <SingleBox
           color={"Blue"}
-          increaseColor={() => setColor("blue", COLOR_INCREMENT)}
-          decreaseColor={() => setColor("blue", -1 * COLOR_INCREMENT)}
+          increaseColor={() =>
+            dispatch({ type: "blue", payload: COLOR_INCREMENT })
+          }
+          decreaseColor={() =>
+            dispatch({ type: "blue", payload: -1 * COLOR_INCREMENT })
+          }
         />
       </View>
       <View style={{ display: "flex", alignItems: "center", marginTop: 20 }}>
