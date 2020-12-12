@@ -17,6 +17,12 @@ const Home = props => {
         >
           <Text style={styles.routeBtnText}>Component Screen</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.routeBtn}
+          onPress={() => navigation.navigate("ColorBoxGenerator")}
+        >
+          <Text style={styles.routeBtnText}>Color Box Generator</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -47,7 +53,8 @@ const styles = StyleSheet.create({
     borderColor: "#89C2D9",
     borderWidth: 1,
     backgroundColor: "#89C2D9",
-    borderRadius: 5
+    borderRadius: 5,
+    marginBottom: 20
   },
   routeBtnText: {
     fontSize: 18
