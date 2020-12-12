@@ -19,6 +19,12 @@ const Home = props => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.routeBtn}
+          onPress={() => navigation.navigate("CounterApp")}
+        >
+          <Text style={styles.routeBtnText}>Counter App</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.routeBtn}
           onPress={() => navigation.navigate("ColorBoxGenerator")}
         >
           <Text style={styles.routeBtnText}>Color Box Generator</Text>
@@ -49,12 +55,15 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   routeBtn: {
+    display:"flex",
+    alignItems:"center",
     padding: 12,
     borderColor: "#89C2D9",
     borderWidth: 1,
     backgroundColor: "#89C2D9",
     borderRadius: 5,
-    marginBottom: 20
+    marginBottom: 20,
+    width: 250
   },
   routeBtnText: {
     fontSize: 18
