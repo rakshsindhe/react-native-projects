@@ -29,6 +29,12 @@ const Home = props => {
         >
           <Text style={styles.routeBtnText}>Color Box Generator</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.routeBtn}
+          onPress={() => navigation.navigate("TextScreen")}
+        >
+          <Text style={styles.routeBtnText}>Text Screen</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
